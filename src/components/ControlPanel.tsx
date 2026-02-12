@@ -153,9 +153,8 @@ export default function ControlPanel() {
       await initializeTranscriptions();
     } catch (error) {
       showAlertDialog({
-        title: "Couldn't load your history",
-        description:
-          "Something went wrong loading your transcriptions. Try closing and reopening the app.",
+        title: UI_STRINGS.common.historyLoadError,
+        description: UI_STRINGS.common.historyLoadErrorDesc,
       });
     } finally {
       setIsLoading(false);
@@ -167,15 +166,15 @@ export default function ControlPanel() {
       try {
         await navigator.clipboard.writeText(text);
         toast({
-          title: "Copied!",
-          description: "Text copied to your clipboard",
+          title: UI_STRINGS.common.copied,
+          description: UI_STRINGS.common.copySuccess,
           variant: "success",
           duration: 2000,
         });
       } catch (err) {
         toast({
-          title: "Couldn't copy",
-          description: "Something went wrong copying to your clipboard. Try again.",
+          title: UI_STRINGS.common.copyError,
+          description: UI_STRINGS.common.copyError,
           variant: "destructive",
         });
       }
@@ -185,21 +184,21 @@ export default function ControlPanel() {
 
   const clearHistory = useCallback(async () => {
     showConfirmDialog({
-      title: "Clear History",
-      description: "This will remove all your transcriptions. You can't undo this.",
+      title: UI_STRINGS.common.clearHistory,
+      description: UI_STRINGS.common.clearHistoryConfirm,
       onConfirm: async () => {
         try {
           const result = await window.electronAPI.clearTranscriptions();
           clearStoreTranscriptions();
           toast({
-            title: "History cleared",
-            description: `${result.cleared} transcription${result.cleared !== 1 ? "s" : ""} removed`,
+            title: UI_STRINGS.common.historyCleared,
+            description: `${result.cleared} 筆紀錄已移除`,
             variant: "success",
             duration: 3000,
           });
         } catch (error) {
           toast({
-            title: "Couldn't clear history",
+            title: UI_STRINGS.common.deleteError,
             description: "Something went wrong. Please try again.",
             variant: "destructive",
           });
@@ -212,8 +211,8 @@ export default function ControlPanel() {
   const deleteTranscription = useCallback(
     async (id: number) => {
       showConfirmDialog({
-        title: "Delete Transcription",
-        description: "This transcription will be permanently removed.",
+        title: UI_STRINGS.common.deleteSuccess,
+        description: "此聽寫紀錄將被永久移除。",
         onConfirm: async () => {
           try {
             const result = await window.electronAPI.deleteTranscription(id);
@@ -221,13 +220,13 @@ export default function ControlPanel() {
               removeFromStore(id);
             } else {
               showAlertDialog({
-                title: "Couldn't delete",
+                title: UI_STRINGS.common.deleteError,
                 description: "This transcription may have already been removed.",
               });
             }
           } catch (error) {
             showAlertDialog({
-              title: "Couldn't delete",
+              title: UI_STRINGS.common.deleteError,
               description: "Something went wrong. Please try again.",
             });
           }
@@ -241,15 +240,15 @@ export default function ControlPanel() {
   const handleUpdateClick = async () => {
     if (updateStatus.updateDownloaded) {
       showConfirmDialog({
-        title: "Install Update",
+        title: UI_STRINGS.common.installUpdate,
         description:
-          "OpenWhispr will restart to apply the update. Any in-progress work will be saved.",
+          "OpenWhispr 將重新啟動以套用更新。任何進行中的工作將會被儲存。",
         onConfirm: async () => {
           try {
             await installUpdate();
           } catch (error) {
             toast({
-              title: "Couldn't install update",
+              title: UI_STRINGS.common.updateError,
               description: "Something went wrong. Please try again.",
               variant: "destructive",
             });
@@ -261,7 +260,7 @@ export default function ControlPanel() {
         await downloadUpdate();
       } catch (error) {
         toast({
-          title: "Couldn't download update",
+          title: UI_STRINGS.common.updateError,
           description: "Check your internet connection and try again.",
           variant: "destructive",
         });
@@ -274,7 +273,7 @@ export default function ControlPanel() {
       return (
         <>
           <Loader2 size={14} className="animate-spin" />
-          <span>Installing...</span>
+          <span>{UI_STRINGS.common.installing}</span>
         </>
       );
     }
@@ -290,7 +289,7 @@ export default function ControlPanel() {
       return (
         <>
           <RefreshCw size={14} />
-          <span>Install Update</span>
+          <span>{UI_STRINGS.common.installUpdate}</span>
         </>
       );
     }
@@ -298,7 +297,7 @@ export default function ControlPanel() {
       return (
         <>
           <Download size={14} />
-          <span>Update Available</span>
+          <span>{UI_STRINGS.common.updateAvailable}</span>
         </>
       );
     }

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import SidebarModal, { SidebarItem } from "./ui/SidebarModal";
 import SettingsPage, { SettingsSectionType } from "./SettingsPage";
+import { UI_STRINGS } from "../config/i18n";
 
 export type { SettingsSectionType };
 
@@ -26,73 +27,73 @@ export default function SettingsModal({ open, onOpenChange, initialSection }: Se
   const sidebarItems: SidebarItem<SettingsSectionType>[] = [
     {
       id: "account",
-      label: "Account",
+      label: UI_STRINGS.settings.sidebar.account.label,
       icon: UserCircle,
-      description: "Sign in & usage",
-      group: "Profile",
+      description: UI_STRINGS.settings.sidebar.account.desc,
+      group: UI_STRINGS.settings.sidebar.groups.profile,
     },
     {
       id: "general",
-      label: "Preferences",
+      label: UI_STRINGS.settings.sidebar.general.label,
       icon: Sliders,
-      description: "Appearance, hotkey & startup",
-      group: "App",
+      description: UI_STRINGS.settings.sidebar.general.desc,
+      group: UI_STRINGS.settings.sidebar.groups.app,
     },
     {
       id: "transcription",
-      label: "Transcription",
+      label: UI_STRINGS.settings.sidebar.transcription.label,
       icon: Mic,
-      description: "Speech-to-text engine",
-      group: "Speech",
+      description: UI_STRINGS.settings.sidebar.transcription.desc,
+      group: UI_STRINGS.settings.sidebar.groups.speech,
     },
     {
       id: "dictionary",
-      label: "Dictionary",
+      label: UI_STRINGS.settings.sidebar.dictionary.label,
       icon: BookOpen,
-      description: "Custom words & phrases",
-      group: "Speech",
+      description: UI_STRINGS.settings.sidebar.dictionary.desc,
+      group: UI_STRINGS.settings.sidebar.groups.speech,
     },
     {
       id: "aiModels",
-      label: "AI Models",
+      label: UI_STRINGS.settings.sidebar.aiModels.label,
       icon: Brain,
-      description: "Text cleanup & enhancement",
-      group: "Intelligence",
+      description: UI_STRINGS.settings.sidebar.aiModels.desc,
+      group: UI_STRINGS.settings.sidebar.groups.intelligence,
     },
     {
       id: "agentConfig",
-      label: "Agent",
+      label: UI_STRINGS.settings.sidebar.agent.label,
       icon: User,
-      description: "Voice agent setup",
-      group: "Intelligence",
+      description: UI_STRINGS.settings.sidebar.agent.desc,
+      group: UI_STRINGS.settings.sidebar.groups.intelligence,
     },
     {
       id: "prompts",
-      label: "Prompts",
+      label: UI_STRINGS.settings.sidebar.prompts.label,
       icon: Sparkles,
-      description: "System prompt studio",
-      group: "Intelligence",
+      description: UI_STRINGS.settings.sidebar.prompts.desc,
+      group: UI_STRINGS.settings.sidebar.groups.intelligence,
     },
     {
       id: "privacy",
-      label: "Privacy",
+      label: UI_STRINGS.settings.sidebar.privacy.label,
       icon: Lock,
-      description: "Cloud backup & analytics",
-      group: "System",
+      description: UI_STRINGS.settings.sidebar.privacy.desc,
+      group: UI_STRINGS.settings.sidebar.groups.system,
     },
     {
       id: "permissions",
-      label: "Permissions",
+      label: UI_STRINGS.settings.sidebar.permissions.label,
       icon: ShieldCheck,
-      description: "Microphone & accessibility",
-      group: "System",
+      description: UI_STRINGS.settings.sidebar.permissions.desc,
+      group: UI_STRINGS.settings.sidebar.groups.system,
     },
     {
       id: "developer",
-      label: "Developer",
+      label: UI_STRINGS.settings.sidebar.developer.label,
       icon: Wrench,
-      description: "Logs, diagnostics & data",
-      group: "System",
+      description: UI_STRINGS.settings.sidebar.developer.desc,
+      group: UI_STRINGS.settings.sidebar.groups.system,
     },
   ];
 
@@ -109,7 +110,7 @@ export default function SettingsModal({ open, onOpenChange, initialSection }: Se
     <SidebarModal<SettingsSectionType>
       open={open}
       onOpenChange={onOpenChange}
-      title="Settings"
+      title={UI_STRINGS.settings.modalTitle}
       sidebarItems={sidebarItems}
       activeSection={activeSection}
       onSectionChange={setActiveSection}

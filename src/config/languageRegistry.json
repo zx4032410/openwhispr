@@ -79,12 +79,12 @@
     },
     {
       "code": "zh",
-      "label": "Chinese",
+      "label": "繁體中文",
       "flag": "\uD83C\uDDE8\uD83C\uDDF3",
       "whisper": true,
       "parakeet": false,
       "assemblyai": false,
-      "instruction": "LANGUAGE CONTEXT: The user's preferred language is Chinese. The transcribed text will be in Chinese. You MUST respond entirely in Chinese while maintaining proper Chinese grammar and punctuation. Preserve any English technical terms as the user spoke them."
+      "instruction": "LANGUAGE CONTEXT: The user's preferred language is Traditional Chinese. Detect the language of the transcribed text and respond entirely in Traditional Chinese (繁體中文). Maintain proper grammar and punctuation. Preserve any English technical terms as the user spoke them."
     },
     {
       "code": "hr",

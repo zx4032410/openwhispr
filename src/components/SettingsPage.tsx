@@ -59,6 +59,7 @@ import logger from "../utils/logger";
 import { SettingsRow } from "./ui/SettingsSection";
 import { useUsage } from "../hooks/useUsage";
 import { cn } from "./lib/utils";
+import { UI_STRINGS } from "../config/i18n";
 
 export type SettingsSectionType =
   | "account"
@@ -183,8 +184,8 @@ function TranscriptionSection({
   return (
     <div className="space-y-4">
       <SectionHeader
-        title="Speech to Text"
-        description="Choose how OpenWhispr transcribes your voice"
+        title={UI_STRINGS.transcription.title}
+        description={UI_STRINGS.transcription.description}
       />
 
       {/* Mode selector */}
@@ -198,8 +199,8 @@ function TranscriptionSection({
                   setUseLocalWhisper(false);
                   updateTranscriptionSettings({ useLocalWhisper: false });
                   toast({
-                    title: "Switched to OpenWhispr Cloud",
-                    description: "Transcription will use OpenWhispr's cloud service.",
+                    title: UI_STRINGS.transcription.cloudMode.toastTitle,
+                    description: UI_STRINGS.transcription.cloudMode.toastDesc,
                     variant: "success",
                     duration: 3000,
                   });
@@ -222,15 +223,15 @@ function TranscriptionSection({
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-[12px] font-medium text-foreground">OpenWhispr Cloud</span>
+                  <span className="text-[12px] font-medium text-foreground">{UI_STRINGS.transcription.cloudMode.title}</span>
                   {isCloudMode && (
                     <span className="text-[10px] font-medium text-primary bg-primary/10 dark:bg-primary/15 px-1.5 py-px rounded-sm">
-                      Active
+                      {UI_STRINGS.common.active}
                     </span>
                   )}
                 </div>
                 <p className="text-[11px] text-muted-foreground/80 mt-0.5">
-                  Just works. No configuration needed.
+                  {UI_STRINGS.transcription.cloudMode.description}
                 </p>
               </div>
               <div
@@ -256,8 +257,8 @@ function TranscriptionSection({
                   setUseLocalWhisper(false);
                   updateTranscriptionSettings({ useLocalWhisper: false });
                   toast({
-                    title: "Switched to Custom Setup",
-                    description: "Configure your own provider and API key.",
+                    title: UI_STRINGS.transcription.customMode.toastTitle,
+                    description: UI_STRINGS.transcription.customMode.toastDesc,
                     variant: "success",
                     duration: 3000,
                   });
@@ -280,15 +281,15 @@ function TranscriptionSection({
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-[12px] font-medium text-foreground">Custom Setup</span>
+                  <span className="text-[12px] font-medium text-foreground">{UI_STRINGS.transcription.customMode.title}</span>
                   {isCustomMode && (
                     <span className="text-[10px] font-medium text-accent bg-accent/10 dark:bg-accent/15 px-1.5 py-px rounded-sm">
-                      Active
+                      {UI_STRINGS.common.active}
                     </span>
                   )}
                 </div>
                 <p className="text-[11px] text-muted-foreground/80 mt-0.5">
-                  Use your own provider and API key.
+                  {UI_STRINGS.transcription.customMode.description}
                 </p>
               </div>
               <div
@@ -415,14 +416,14 @@ function AiModelsSection({
   return (
     <div className="space-y-4">
       <SectionHeader
-        title="AI Text Enhancement"
-        description="Clean up transcriptions, handle commands, and fix errors while preserving your tone."
+        title={UI_STRINGS.aiModels.title}
+        description={UI_STRINGS.aiModels.description}
       />
 
       {/* Enable toggle — always at top */}
       <SettingsPanel>
         <SettingsPanelRow>
-          <SettingsRow label="Enable text cleanup" description="AI improves transcription quality">
+          <SettingsRow label={UI_STRINGS.transcription.cleanup.label} description={UI_STRINGS.transcription.cleanup.description}>
             <Toggle checked={useReasoningModel} onChange={setUseReasoningModel} />
           </SettingsRow>
         </SettingsPanelRow>
@@ -1390,16 +1391,16 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
 
             {/* Appearance */}
             <div>
-              <SectionHeader title="Appearance" description="Control how OpenWhispr looks" />
+              <SectionHeader title={UI_STRINGS.general.appearance.title} description={UI_STRINGS.general.appearance.description} />
               <SettingsPanel>
                 <SettingsPanelRow>
-                  <SettingsRow label="Theme" description="Choose light, dark, or match your system">
+                  <SettingsRow label={UI_STRINGS.general.theme.label} description={UI_STRINGS.general.theme.description}>
                     <div className="inline-flex items-center gap-px p-0.5 bg-muted/60 dark:bg-surface-2 rounded-md">
                       {(
                         [
-                          { value: "light", icon: Sun, label: "Light" },
-                          { value: "dark", icon: Moon, label: "Dark" },
-                          { value: "auto", icon: Monitor, label: "Auto" },
+                          { value: "light", icon: Sun, label: UI_STRINGS.general.theme.light },
+                          { value: "dark", icon: Moon, label: UI_STRINGS.general.theme.dark },
+                          { value: "auto", icon: Monitor, label: UI_STRINGS.general.theme.system },
                         ] as const
                       ).map((option) => {
                         const Icon = option.icon;
@@ -1431,12 +1432,12 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
 
             {/* Sound Effects */}
             <div>
-              <SectionHeader title="Sound Effects" />
+              <SectionHeader title={UI_STRINGS.general.sounds.title} />
               <SettingsPanel>
                 <SettingsPanelRow>
                   <SettingsRow
-                    label="Dictation sounds"
-                    description="Play a tone when recording starts and stops"
+                    label={UI_STRINGS.general.sounds.label}
+                    description={UI_STRINGS.general.sounds.description}
                   >
                     <Toggle checked={audioCuesEnabled} onChange={setAudioCuesEnabled} />
                   </SettingsRow>
@@ -1447,14 +1448,14 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
             {/* Floating Icon */}
             <div>
               <SectionHeader
-                title="Floating Icon"
-                description="Control when the dictation icon is visible on your screen"
+                title={UI_STRINGS.general.floatingIcon.title}
+                description={UI_STRINGS.general.floatingIcon.description}
               />
               <SettingsPanel>
                 <SettingsPanelRow>
                   <SettingsRow
-                    label="Auto-hide when idle"
-                    description="Keep the icon hidden until you start dictating"
+                    label={UI_STRINGS.general.floatingIcon.label}
+                    description={UI_STRINGS.general.floatingIcon.descriptionLabel}
                   >
                     <Toggle checked={floatingIconAutoHide} onChange={setFloatingIconAutoHide} />
                   </SettingsRow>
@@ -1465,14 +1466,14 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
             {/* Language */}
             <div>
               <SectionHeader
-                title="Language"
-                description="Set the language used for transcription"
+                title={UI_STRINGS.general.language.title}
+                description={UI_STRINGS.general.language.description}
               />
               <SettingsPanel>
                 <SettingsPanelRow>
                   <SettingsRow
-                    label="Preferred language"
-                    description="Choose the language you speak for more accurate transcription"
+                    label={UI_STRINGS.general.language.label}
+                    description={UI_STRINGS.general.language.descriptionLabel}
                   >
                     <LanguageSelector
                       value={preferredLanguage}
@@ -1488,8 +1489,8 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
             {/* Dictation Hotkey */}
             <div>
               <SectionHeader
-                title="Dictation Hotkey"
-                description="The key combination that starts and stops voice dictation"
+                title={UI_STRINGS.general.hotkey.title}
+                description={UI_STRINGS.general.hotkey.description}
               />
               <SettingsPanel>
                 <SettingsPanelRow>
@@ -1506,7 +1507,7 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
                 {!isUsingGnomeHotkeys && (
                   <SettingsPanelRow>
                     <p className="text-[11px] font-medium text-muted-foreground/80 mb-2">
-                      Activation Mode
+                      {UI_STRINGS.general.hotkey.activationMode}
                     </p>
                     <ActivationModeSelector value={activationMode} onChange={setActivationMode} />
                   </SettingsPanelRow>
@@ -1517,12 +1518,12 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
             {/* Startup */}
             {platform !== "linux" && (
               <div>
-                <SectionHeader title="Startup" />
+                <SectionHeader title={UI_STRINGS.general.startup.title} />
                 <SettingsPanel>
                   <SettingsPanelRow>
                     <SettingsRow
-                      label="Launch at login"
-                      description="Start OpenWhispr automatically when you log in"
+                      label={UI_STRINGS.general.startup.label}
+                      description={UI_STRINGS.general.startup.description}
                     >
                       <Toggle
                         checked={autoStartEnabled}
@@ -1592,18 +1593,18 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
         return (
           <div className="space-y-5">
             <SectionHeader
-              title="Custom Dictionary"
-              description="Add words, names, or technical terms to improve transcription accuracy"
+              title={UI_STRINGS.transcription.dictionary.title}
+              description={UI_STRINGS.transcription.dictionary.description}
             />
 
             {/* Add Words */}
             <SettingsPanel>
               <SettingsPanelRow>
                 <div className="space-y-2">
-                  <p className="text-[12px] font-medium text-foreground">Add a word or phrase</p>
+                  <p className="text-[12px] font-medium text-foreground">{UI_STRINGS.transcription.dictionary.inputLabel}</p>
                   <div className="flex gap-2">
                     <Input
-                      placeholder="e.g. OpenWhispr, Kubernetes, Dr. Martinez..."
+                      placeholder={UI_STRINGS.transcription.dictionary.inputPlaceholder}
                       value={newDictionaryWord}
                       onChange={(e) => setNewDictionaryWord(e.target.value)}
                       onKeyDown={(e) => {
@@ -1619,10 +1620,10 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
                       size="sm"
                       className="h-8"
                     >
-                      Add
+                      {UI_STRINGS.transcription.dictionary.addButton}
                     </Button>
                   </div>
-                  <p className="text-[10px] text-muted-foreground/50">Press Enter to add</p>
+                  <p className="text-[10px] text-muted-foreground/50">{UI_STRINGS.transcription.dictionary.helpText}</p>
                 </div>
               </SettingsPanelRow>
             </SettingsPanel>
@@ -1631,7 +1632,7 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
             <div>
               <div className="flex items-center justify-between mb-2">
                 <p className="text-[12px] font-medium text-foreground">
-                  Your words
+                  {UI_STRINGS.transcription.dictionary.yourWords}
                   {customDictionary.length > 0 && (
                     <span className="ml-1.5 text-muted-foreground/50 font-normal text-[11px]">
                       {customDictionary.length}
@@ -1642,10 +1643,9 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
                   <button
                     onClick={() => {
                       showConfirmDialog({
-                        title: "Clear dictionary?",
-                        description:
-                          "This will remove all words from your custom dictionary. This action cannot be undone.",
-                        confirmText: "Clear All",
+                        title: UI_STRINGS.transcription.dictionary.clearTitle,
+                        description: UI_STRINGS.transcription.dictionary.clearDesc,
+                        confirmText: UI_STRINGS.transcription.dictionary.clearConfirm,
                         variant: "destructive",
                         onConfirm: () =>
                           setCustomDictionary(customDictionary.filter((w) => w === agentName)),
@@ -1653,7 +1653,7 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
                     }}
                     className="text-[10px] text-muted-foreground/40 hover:text-destructive transition-colors"
                   >
-                    Clear all
+                    {UI_STRINGS.transcription.dictionary.clearAll}
                   </button>
                 )}
               </div>
@@ -1702,9 +1702,9 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
                 </SettingsPanel>
               ) : (
                 <div className="rounded-lg border border-dashed border-border/40 dark:border-border-subtle py-6 flex flex-col items-center justify-center text-center">
-                  <p className="text-[11px] text-muted-foreground/50">No words added yet</p>
+                  <p className="text-[11px] text-muted-foreground/50">{UI_STRINGS.transcription.dictionary.emptyState}</p>
                   <p className="text-[10px] text-muted-foreground/40 mt-0.5">
-                    Words you add will appear here
+                    {UI_STRINGS.transcription.dictionary.emptyStateDesc}
                   </p>
                 </div>
               )}
@@ -1712,21 +1712,16 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
 
             {/* How it works */}
             <div>
-              <SectionHeader title="How it works" />
+              <SectionHeader title={UI_STRINGS.transcription.dictionary.howItWorks.title} />
               <SettingsPanel>
                 <SettingsPanelRow>
                   <p className="text-[12px] text-muted-foreground leading-relaxed">
-                    Words in your dictionary are provided as context hints to the speech recognition
-                    model. This helps it correctly identify uncommon names, technical jargon, brand
-                    names, or anything that's frequently misrecognized.
+                    {UI_STRINGS.transcription.dictionary.howItWorks.p1}
                   </p>
                 </SettingsPanelRow>
                 <SettingsPanelRow>
                   <p className="text-[12px] text-muted-foreground leading-relaxed">
-                    <span className="font-medium text-foreground">Tip</span> — For difficult words,
-                    add context phrases like "The word is Synty" alongside the word itself. Adding
-                    related terms (e.g. "Synty" and "SyntyStudios") also helps the model understand
-                    the intended spelling.
+                    <span className="font-medium text-foreground">提示</span> — {UI_STRINGS.transcription.dictionary.howItWorks.p2}
                   </p>
                 </SettingsPanelRow>
               </SettingsPanel>
@@ -2004,14 +1999,14 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
             {/* Data Management — moved from General */}
             <div className="border-t border-border/40 pt-8">
               <SectionHeader
-                title="Data Management"
-                description="Manage cached models and app data"
+                title={UI_STRINGS.aiModels.dangerZone.title}
+                description={UI_STRINGS.aiModels.dangerZone.description}
               />
 
               <div className="space-y-4">
                 <SettingsPanel>
                   <SettingsPanelRow>
-                    <SettingsRow label="Model cache" description={cachePathHint}>
+                    <SettingsRow label={UI_STRINGS.aiModels.modelCache.title} description={cachePathHint}>
                       <div className="flex items-center gap-2">
                         <Button
                           variant="ghost"
@@ -2019,7 +2014,7 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
                           onClick={() => window.electronAPI?.openWhisperModelsFolder?.()}
                         >
                           <FolderOpen className="mr-1.5 h-3.5 w-3.5" />
-                          Open
+                          {UI_STRINGS.aiModels.modelCache.openFolder}
                         </Button>
                         <Button
                           variant="destructive"
@@ -2027,7 +2022,7 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
                           onClick={handleRemoveModels}
                           disabled={isRemovingModels}
                         >
-                          {isRemovingModels ? "Removing..." : "Clear Cache"}
+                          {isRemovingModels ? UI_STRINGS.aiModels.modelCache.clearing : UI_STRINGS.aiModels.modelCache.clearCache}
                         </Button>
                       </div>
                     </SettingsRow>
@@ -2037,23 +2032,21 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
                 <SettingsPanel>
                   <SettingsPanelRow>
                     <SettingsRow
-                      label="Reset app data"
-                      description="Permanently delete all settings, transcriptions, and cached data"
+                      label={UI_STRINGS.aiModels.dangerZone.resetLabel}
+                      description={UI_STRINGS.aiModels.dangerZone.resetDesc}
                     >
                       <Button
                         onClick={() => {
                           showConfirmDialog({
-                            title: "Reset All App Data",
-                            description:
-                              "This will permanently delete ALL OpenWhispr data including:\n\n- Database and transcriptions\n- Local storage settings\n- Downloaded models\n- Environment files\n\nYou will need to manually remove app permissions in System Settings.\n\nThis action cannot be undone.",
+                            title: UI_STRINGS.aiModels.dangerZone.confirmTitle,
+                            description: UI_STRINGS.aiModels.dangerZone.confirmDesc,
                             onConfirm: () => {
                               window.electronAPI
                                 ?.cleanupApp()
                                 .then(() => {
                                   showAlertDialog({
-                                    title: "All done",
-                                    description:
-                                      "Everything has been reset. The app will reload now.",
+                                    title: UI_STRINGS.aiModels.dangerZone.successTitle,
+                                    description: UI_STRINGS.aiModels.dangerZone.successDesc,
                                   });
                                   setTimeout(() => {
                                     window.location.reload();
@@ -2061,21 +2054,20 @@ export default function SettingsPage({ activeSection = "general" }: SettingsPage
                                 })
                                 .catch(() => {
                                   showAlertDialog({
-                                    title: "Couldn't reset",
-                                    description:
-                                      "Something went wrong. Please try again or reinstall the app.",
+                                    title: UI_STRINGS.aiModels.dangerZone.errorTitle,
+                                    description: UI_STRINGS.aiModels.dangerZone.errorDesc,
                                   });
                                 });
                             },
                             variant: "destructive",
-                            confirmText: "Delete Everything",
+                            confirmText: UI_STRINGS.aiModels.dangerZone.confirmButton,
                           });
                         }}
                         variant="outline"
                         size="sm"
                         className="text-destructive border-destructive/30 hover:bg-destructive/10 hover:border-destructive"
                       >
-                        Reset
+                        {UI_STRINGS.aiModels.dangerZone.resetButton}
                       </Button>
                     </SettingsRow>
                   </SettingsPanelRow>
